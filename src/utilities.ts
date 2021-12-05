@@ -87,48 +87,45 @@ export function round(value: number, decimalPlaces: number) {
  * @author https://github.com/bbx10/node-htu21d/blob/135e81b53ab5e98282cb16ea9d27ce193dc9bf0a/index.js#L82
  */
 export function calcTemp(data: Buffer) {
-	if (data.length === 3 && calc_crc8(data, 3)) {
-		var rawtemp = ((data[0] << 8) | data[1]) & 0xfffc;
-		var temperature = (rawtemp / 65536.0) * 175.72 - 46.85;
+	if (data.length === 3 && calcCRC8(data, 3)) {
+		const rawtemp = ((data[0] << 8) | data[1]) & 0xfffc;
+		const temperature = (rawtemp / 65536.0) * 175.72 - 46.85;
 
 		return round(temperature, 2);
 	}
 
-	throw new Error(`The read data are invalid!`);
+	throw new Error('The read data are invalid!');
 }
 
 /**
  * @author https://github.com/bbx10/node-htu21d/blob/135e81b53ab5e98282cb16ea9d27ce193dc9bf0a/index.js#L109
  */
 export function calcHumi(data: Buffer) {
-	if (data.length === 3 && calc_crc8(data, 3)) {
-		var rawhumi = ((data[0] << 8) | data[1]) & 0xfffc;
-		var humidity = (rawhumi / 65536.0) * 125.0 - 6.0;
+	if (data.length === 3 && calcCRC8(data, 3)) {
+		const rawhumi = ((data[0] << 8) | data[1]) & 0xfffc;
+		const humidity = (rawhumi / 65536.0) * 125.0 - 6.0;
 
 		return round(humidity, 1);
 	}
 
-	throw new Error(`The read data are invalid!`);
+	throw new Error('The read data are invalid!');
 }
 
 /**
  * @author https://github.com/bbx10/node-htu21d/blob/135e81b53ab5e98282cb16ea9d27ce193dc9bf0a/index.js#L129
  */
-function calc_crc8(buf: Buffer, len: number) {
-	var dataandcrc;
-
-	var poly = 0x98800000;
-	var i;
+function calcCRC8(buf: Buffer, len: number) {
+	let dataAndCRC;
 
 	if (len === null) return -1;
 	if (len != 3) return -1;
 	if (buf === null) return -1;
 
-	dataandcrc = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8);
-	for (i = 0; i < 24; i++) {
-		if (dataandcrc & 0x80000000) dataandcrc ^= poly;
-		dataandcrc <<= 1;
+	dataAndCRC = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8);
+	for (let i = 0; i < 24; i++) {
+		if (dataAndCRC & 0x80000000) dataAndCRC ^= 0x98800000;
+		dataAndCRC <<= 1;
 	}
 
-	return dataandcrc === 0;
+	return dataAndCRC === 0;
 }
