@@ -1,0 +1,34 @@
+{
+	"name": "node-sht20",
+	"description": "Library to work with a SHT20 chip via i2c",
+	"version": "1.0.0",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"repository": "https://github.com/KillerJulian/node-sht20",
+	"homepage": "https://killerjulian.github.io/node-sht20",
+	"author": "KillerJulian <info@killerjulian.de>",
+	"license": "MIT",
+	"dependencies": {
+		"i2c-bus": "^5.2.2",
+		"tslib": "^2.3.1"
+	},
+	"devDependencies": {
+		"@types/i2c-bus": "^5.1.0",
+		"@types/node": "^16.11.11",
+		"@typescript-eslint/eslint-plugin": "^5.5.0",
+		"@typescript-eslint/parser": "^5.5.0",
+		"eslint": "8.4.0",
+		"typescript": "^4.5.2",
+		"typedoc": "^0.22.10"
+	},
+	"scripts": {
+		"build": "yarn build:lib && yarn build:docs",
+		"build:lib": "tsc",
+		"build:docs": "typedoc --out docs --entryPoints src/index.ts",
+		"lint": "eslint src --ext .ts",
+		"prepack": "yarn build:lib"
+	},
+	"keywords": [
+		"sht20"
+	]
+}
