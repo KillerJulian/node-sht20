@@ -1,5 +1,6 @@
 # node-SHT20
 
+[![NPM](https://nodei.co/npm/node-sht20.png)](https://npmjs.org/package/node-sht20)
 
 ## Install
 
