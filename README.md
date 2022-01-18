@@ -1,5 +1,6 @@
 # node-SHT20
 
+[![NPM](https://nodei.co/npm/node-sht20.png)](https://npmjs.org/package/node-sht20)
 
 ## Install
 
@@ -43,7 +44,6 @@ Usage in JavaScript (with CommonJS):
 const nodeSHT20 = require('node-sht20');
 
 const sensor = new nodeSHT20.SHT20({
-	address: 0x40,
 	bus: 1
 });
 
